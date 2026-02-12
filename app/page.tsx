@@ -419,25 +419,41 @@ function HomePage({ navigateToPage }: { navigateToPage: (page: string) => void }
 
 
       {/* Stats bar - reference: dot grid, accent-gold numbers */}
-      <div className="bg-[#800020] py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center text-white">
-            <div className="space-y-3">
-              <h3 className="text-6xl font-serif font-bold text-[#C5A059]">CBSE</h3>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">Affiliated School</p>
-            </div>
-            <div className="space-y-3 border-y md:border-y-0 md:border-x border-white/20 py-10 md:py-0">
-              <h3 className="text-6xl font-serif font-bold text-[#C5A059]">Nursery–X</h3>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">Classes Offered</p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-6xl font-serif font-bold text-[#C5A059]">English</h3>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">Medium</p>
-            </div>
-          </div>
-        </div>
+      <div className="bg-[#800020] py-12 relative overflow-hidden">
+  <div
+    className="absolute inset-0 opacity-10 pointer-events-none"
+    style={{
+      backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)',
+      backgroundSize: '40px 40px',
+    }}
+  />
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center text-white">
+      
+      <div className="space-y-2">
+        <h3 className="text-5xl font-serif font-bold text-[#C5A059]">CBSE</h3>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">
+          Affiliated School
+        </p>
       </div>
+
+      <div className="space-y-2 border-y md:border-y-0 md:border-x border-white/20 py-6 md:py-0">
+        <h3 className="text-5xl font-serif font-bold text-[#C5A059]">Nursery–X</h3>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">
+          Classes Offered
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        <h3 className="text-5xl font-serif font-bold text-[#C5A059]">English</h3>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">
+          Medium
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
 
       {/* About - reference: py-32, grayscale images, Established badge, border-b-4 cards */}
       <section className="py-32 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
