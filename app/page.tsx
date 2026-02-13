@@ -70,6 +70,11 @@ export default function AshutoshMemorialSchool() {
         { title: 'School Timing', href: 'timing' },
       ],
     },
+    {
+      title: 'TC',
+      externalHref: 'http://ams.schoolerpsolution.in/tc.php',
+    },
+    { title: 'Docs', href: 'docs' },
     { title: 'Contact', href: 'contact' },
   ];
 
@@ -124,6 +129,8 @@ export default function AshutoshMemorialSchool() {
         return <FacultyProfile />;
       case 'co-curriculum':
         return <CoCurriculum />;
+      case 'docs':
+        return <DocsPage />;
       default:
         return <HomePage navigateToPage={navigateToPage} />;
     }
@@ -150,22 +157,33 @@ export default function AshutoshMemorialSchool() {
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide uppercase">
             {navItems.map((item) => (
               <div key={item.title} className="relative">
-                <button
-                  onClick={() => {
-                    if (item.submenu) {
-                      setActiveDropdown(activeDropdown === item.title ? null : item.title);
-                    } else if (item.href) {
-                      navigateToPage(item.href);
-                      setActiveDropdown(null);
-                    }
-                  }}
-                  className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
-                >
-                  {item.title}
-                  {item.submenu && (
-                    <span className="material-symbols-outlined text-sm">expand_more</span>
-                  )}
-                </button>
+                {'externalHref' in item && item.externalHref ? (
+                  <a
+                    href={item.externalHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
+                  >
+                    {item.title}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if (item.submenu) {
+                        setActiveDropdown(activeDropdown === item.title ? null : item.title);
+                      } else if (item.href) {
+                        navigateToPage(item.href);
+                        setActiveDropdown(null);
+                      }
+                    }}
+                    className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
+                  >
+                    {item.title}
+                    {item.submenu && (
+                      <span className="material-symbols-outlined text-sm">expand_more</span>
+                    )}
+                  </button>
+                )}
                 {item.submenu && activeDropdown === item.title && (
                   <div
                     className="absolute left-0 top-full mt-2 w-56 rounded-lg bg-white dark:bg-zinc-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden py-2"
@@ -202,21 +220,33 @@ export default function AshutoshMemorialSchool() {
       <div className="px-4 py-4 space-y-2">
         {navItems.map((item) => (
           <div key={item.title}>
-            <button
-              onClick={() => {
-                if (item.submenu) {
-                  setActiveDropdown(
-                    activeDropdown === item.title ? null : item.title
-                  );
-                } else if (item.href) {
-                  navigateToPage(item.href);
-                  setIsMenuOpen(false);
-                }
-              }}
-              className="w-full text-left py-2 font-medium hover:text-[#800020]"
-            >
-              {item.title}
-            </button>
+            {'externalHref' in item && item.externalHref ? (
+              <a
+                href={item.externalHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left py-2 font-medium hover:text-[#800020]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.title}
+              </a>
+            ) : (
+              <button
+                onClick={() => {
+                  if (item.submenu) {
+                    setActiveDropdown(
+                      activeDropdown === item.title ? null : item.title
+                    );
+                  } else if (item.href) {
+                    navigateToPage(item.href);
+                    setIsMenuOpen(false);
+                  }
+                }}
+                className="w-full text-left py-2 font-medium hover:text-[#800020]"
+              >
+                {item.title}
+              </button>
+            )}
 
             {item.submenu && activeDropdown === item.title && (
               <div className="pl-4 space-y-1">
@@ -463,7 +493,7 @@ function HomePage({ navigateToPage }: { navigateToPage: (page: string) => void }
               <Image src="/AMS.jpg" alt="Campus" fill className="object-cover" />
             </div>
             <div className="relative w-full h-72 overflow-hidden shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all duration-700">
-              <Image src="/AMS1.jpg" alt="School" fill className="object-cover" />
+              <Image src="/aps.jpeg" alt="School" fill className="object-cover" />
             </div>
           </div>
           <div className="pt-16 space-y-6 relative">
@@ -1714,6 +1744,131 @@ function ContactPage() {
             <p className="text-slate-100 text-sm">Monday – Saturday: 8:00 AM to 3:00 PM</p>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+// PDF documents config: add your PDFs to /public and list them here (path = filename in public)
+const DOCS_PDF_LIST = [
+  { file: 'doc1.pdf', title: 'Admission Fees', description: 'School document' },
+  { file: 'doc2.pdf', title: 'Academic Calendar', description: 'School document' },
+  { file: 'doc3.pdf', title: 'Staff Info', description: 'School document' },
+  { file: 'doc4.pdf', title: 'Letter', description: 'School document' },
+  { file: 'doc5.pdf', title: 'Deed of Trust', description: 'School document' },
+  { file: 'doc6.pdf', title: 'Campus Info', description: 'School document' },
+  { file: 'doc7.pdf', title: 'Chemical Analysis', description: 'School document' },
+  { file: 'doc8.pdf', title: 'Parent Teacher Association', description: 'School document' },
+  { file: 'doc9.pdf', title: 'School Management Committee', description: 'School document' },
+  { file: 'doc10.pdf', title: 'Document ', description: 'School document' },
+];
+
+// DOCS PAGE - view & download PDFs from /public
+function DocsPage() {
+  const [previewPdf, setPreviewPdf] = useState<string | null>(null);
+
+  return (
+    <section className="py-16 md:py-28 min-h-screen">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        {/* Header - minimal */}
+        <div className="mb-14 md:mb-20">
+          <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">
+            Documents
+          </h1>
+          <p className="mt-3 text-slate-500 dark:text-slate-400 text-sm md:text-base">
+            View or download school documents.
+          </p>
+        </div>
+
+        {/* List - one row per doc, lots of space */}
+        <ul className="space-y-1">
+          {DOCS_PDF_LIST.map((doc) => (
+            <li
+              key={doc.file}
+              className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 py-5 sm:py-6 border-b border-slate-100 dark:border-zinc-800/80 last:border-0"
+            >
+              <div className="flex items-center gap-4 min-w-0 flex-1">
+                <span className="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:text-[#800020] transition-colors shrink-0 text-2xl">
+                  description
+                </span>
+                <span className="font-medium text-slate-900 dark:text-white truncate">
+                  {doc.title}
+                </span>
+              </div>
+              <div className="flex items-center gap-4 sm:gap-6 shrink-0 pl-10 sm:pl-0">
+                <button
+                  onClick={() => setPreviewPdf(doc.file)}
+                  className="text-sm text-[#800020] hover:underline font-medium"
+                >
+                  Preview
+                </button>
+                <a
+                  href={`/${doc.file}`}
+                  download={doc.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-slate-500 dark:text-slate-400 hover:text-[#800020] hover:underline font-medium"
+                >
+                  Download
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        {/* Preview Modal */}
+        {previewPdf && (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+            onClick={() => setPreviewPdf(null)}
+          >
+            <div
+              className="relative w-full max-w-4xl h-[85vh] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/50">
+                <h3 className="font-serif font-bold text-slate-900 dark:text-white truncate pr-4">
+                  {DOCS_PDF_LIST.find((d) => d.file === previewPdf)?.title ?? previewPdf}
+                </h3>
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={`/${previewPdf}`}
+                    download={previewPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
+                    title="Download"
+                  >
+                    <span className="material-symbols-outlined">download</span>
+                  </a>
+                  <a
+                    href={`/${previewPdf}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
+                    title="Open in new tab"
+                  >
+                    <span className="material-symbols-outlined">open_in_new</span>
+                  </a>
+                  <button
+                    onClick={() => setPreviewPdf(null)}
+                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
+                    title="Close"
+                  >
+                    <span className="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 min-h-0 relative">
+                <iframe
+                  src={`/${previewPdf}#toolbar=1`}
+                  title="PDF Preview"
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
