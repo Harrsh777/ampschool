@@ -391,10 +391,7 @@ export default function AshutoshMemorialSchool() {
 
 // Hero carousel images (Unsplash + /public)
 const HERO_CAROUSEL_IMAGES = [
-  {
-    src: 'https://plus.unsplash.com/premium_photo-1681505336207-cea25b6cf0ea?w=1600&auto=format&fit=crop&q=80',
-    alt: 'Ashutosh Memorial School - Excellence in Education',
-  },
+ 
   { src: '/AMS.jpg', alt: 'AMS Campus' },
   { src: '/AMS2.jpg', alt: 'AMS Students' },
   { src: '/aps.jpeg', alt: 'Ashutosh Memorial School' },
@@ -1806,126 +1803,229 @@ const DOCS_PDF_LIST = [
   { file: 'doc10.pdf', title: 'Document', description: 'School document' },
 ];
 
-// DOCS PAGE - view & download PDFs from /public (box cards)
+// Section B document rows: label → doc file (from DOCS_PDF_LIST)
+const SECTION_B_DOCS = [
+  { label: 'Copies of affiliation/upgradation letter and recent extension of affiliation, if any', file: 'doc4.pdf' },
+  { label: 'Copies of society/trust/company registration/renewal certificate, as applicable', file: 'doc5.pdf' },
+  { label: 'Copy of no objection certificate (NOC) issued, if applicable, by the state govt./UT', file: 'doc4.pdf' },
+  { label: "Copies of recognition certificate under RTE Act,2009, and it's renewal if applicable", file: 'doc10.pdf' },
+  { label: 'Copy of valid building safety certificate as per the national building code', file: 'doc6.pdf' },
+  { label: 'Copy of valid fire safety certificate issued by the competent authority', file: 'doc10.pdf' },
+  { label: 'Copy of the DEO certificate submitted by the school for affiliation/upgradation/extension of affiliation or self certificate by school', file: 'doc4.pdf' },
+  { label: 'Copies of valid drinking water, health and sanitation certificates and water testing report', file: 'doc7.pdf' },
+];
+// Section C document rows
+const SECTION_C_DOCS = [
+  { label: 'Fee structure of the school', file: 'doc1.pdf' },
+  { label: 'Annual academic calendar', file: 'doc2.pdf' },
+  { label: 'List of school management committee (SMC)', file: 'doc9.pdf' },
+  { label: 'List of parents teachers association (PTA) members', file: 'doc8.pdf' },
+];
+
+// DOCS PAGE - Mandatory Public Disclosure (reference layout, AMS data)
 function DocsPage() {
   const [previewPdf, setPreviewPdf] = useState<string | null>(null);
 
-  return (
-    <section className="py-16 md:py-24 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="mb-12 md:mb-16">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">
-            Documents
-          </h1>
-          <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm md:text-base">
-            View or download school documents.
-          </p>
-        </div>
+  const renderTable = (
+    headers: string[],
+    rows: { cells: (string | React.ReactNode)[] }[],
+    className = ''
+  ) => (
+    <div className={`overflow-x-auto ${className}`}>
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-[#800020] text-white">
+            {headers.map((h, i) => (
+              <th key={i} className="text-left py-3 px-4 font-semibold whitespace-nowrap">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="text-slate-700 dark:text-slate-300">
+          {rows.map((row, ri) => (
+            <tr key={ri} className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+              {row.cells.map((cell, ci) => (
+                <td key={ci} className="py-3 px-4">{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
-        {/* Mandatory Public Disclosure - AMS */}
-        <div className="mb-16 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden shadow-sm">
-          <div className="px-6 py-5 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/50">
-            <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+  const viewBtn = (file: string) => (
+    <button
+      type="button"
+      onClick={() => setPreviewPdf(file)}
+      className="text-[#800020] font-semibold hover:underline"
+    >
+      VIEW
+    </button>
+  );
+
+  return (
+    <section className="py-12 md:py-20 min-h-screen bg-[#FCFAF7] dark:bg-[#0A0A0A]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        {/* Main card */}
+        <div className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden shadow-sm">
+          {/* Title block */}
+          <div className="px-6 py-6 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/70">
+            <h1 className="text-2xl font-serif font-bold text-slate-900 dark:text-white">
               Mandatory Public Disclosure
-            </h2>
-            <p className="mt-1 text-sm font-semibold text-[#800020] uppercase tracking-wide">
+            </h1>
+            <p className="mt-2 text-sm font-bold text-[#800020] uppercase tracking-wider">
               Affiliation Status : Secondary
             </p>
           </div>
-          <div className="px-6 py-4">
-            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4">
-              A. General Information
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm border-collapse">
-                <thead>
-                  <tr className="bg-[#800020] text-white">
-                    <th className="text-left py-3 px-4 font-semibold w-20">SL NO.</th>
-                    <th className="text-left py-3 px-4 font-semibold">INFORMATION</th>
-                    <th className="text-left py-3 px-4 font-semibold">DETAILS</th>
-                  </tr>
-                </thead>
-                <tbody className="text-slate-700 dark:text-slate-300">
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">1</td>
-                    <td className="py-3 px-4 font-medium">Name of the School</td>
-                    <td className="py-3 px-4">Ashutosh Memorial School</td>
-                  </tr>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">2</td>
-                    <td className="py-3 px-4 font-medium">Affiliation No. (if applicable)</td>
-                    <td className="py-3 px-4">2133851</td>
-                  </tr>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">3</td>
-                    <td className="py-3 px-4 font-medium">School Code (if applicable)</td>
-                    <td className="py-3 px-4">71908</td>
-                  </tr>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">4</td>
-                    <td className="py-3 px-4 font-medium">Complete Address with Pincode</td>
-                    <td className="py-3 px-4">Dhanaicha-Malkhanpur, Post-Kotwa, Prayagraj-221505 (Uttar Pradesh)</td>
-                  </tr>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">5</td>
-                    <td className="py-3 px-4 font-medium">Principal Name and Qualification</td>
-                    <td className="py-3 px-4">Mrs. Ragini Verma, B.Ed.</td>
-                  </tr>
-                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">6</td>
-                    <td className="py-3 px-4 font-medium">School Email ID</td>
-                    <td className="py-3 px-4">grishpandey2006@gmail.com</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50 dark:hover:bg-zinc-900/50">
-                    <td className="py-3 px-4 font-medium">7</td>
-                    <td className="py-3 px-4 font-medium">Contact Details (Landline / Mobile)</td>
-                    <td className="py-3 px-4">9415278868, 7007050611</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
 
-        {/* Box grid - responsive cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
-          {DOCS_PDF_LIST.map((doc) => (
-            <div
-              key={doc.file}
-              className="group flex flex-col rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm hover:shadow-md hover:border-[#800020]/20 transition-all duration-200 overflow-hidden"
-            >
-              <div className="p-5 flex flex-col flex-1 min-h-0">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 group-hover:bg-[#800020]/10 transition-colors">
-                    <span className="material-symbols-outlined text-[#800020] text-xl">description</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-tight line-clamp-2 min-w-0">
-                    {doc.title}
-                  </h3>
-                </div>
-                <div className="flex gap-1.5 mt-auto pt-2 min-w-0">
-                  <button
-                    onClick={() => setPreviewPdf(doc.file)}
-                    className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 py-1.5 px-2 text-[11px] font-semibold text-[#800020] bg-[#800020]/10 hover:bg-[#800020]/20 rounded-md transition-colors"
-                  >
-                    <span className="material-symbols-outlined text-sm shrink-0">visibility</span>
-                    
-                  </button>
-                  <a
-                    href={`/${doc.file}`}
-                    download={doc.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 py-1.5 px-2 text-[11px] font-semibold bg-[#800020] text-white hover:bg-red-900 rounded-md transition-colors"
-                  >
-                    <span className="material-symbols-outlined text-sm shrink-0">download</span>
-                   
-                  </a>
-                </div>
+          <div className="px-6 py-6 space-y-10">
+            {/* A. GENERAL INFORMATION */}
+            <div id="section-a">
+              <h2 className="text-base font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3">
+                A. GENERAL INFORMATION
+              </h2>
+              {renderTable(
+                ['SL NO.', 'INFORMATION', 'DETAILS'],
+                [
+                  { cells: ['1', 'Name of the School', 'Ashutosh Memorial School'] },
+                  { cells: ['2', 'Affiliation No. (if applicable)', '2133851'] },
+                  { cells: ['3', 'School Code (if applicable)', '71908'] },
+                  { cells: ['4', 'Complete Address with Pincode', 'Dhanaicha-Malkhanpur, Post-Kotwa, Prayagraj-221505 (Uttar Pradesh)'] },
+                  { cells: ['5', 'Principal Name and Qualification', 'Mrs. Ragini Verma, B.Ed.'] },
+                  { cells: ['6', 'School Email ID', 'grishpandey2006@gmail.com'] },
+                  { cells: ['7', 'Contact Details (Landline/Mobile)', '9415278868, 7007050611'] },
+                ]
+              )}
+            </div>
+
+            {/* B. DOCUMENTS AND INFORMATION */}
+            <div id="section-b" className="pt-8 border-t border-slate-200 dark:border-zinc-800">
+              <h2 className="text-base font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3">
+                B. DOCUMENTS AND INFORMATION
+              </h2>
+              {renderTable(
+                ['SL NO.', 'DOCUMENTS/INFORMATION', 'UPLOAD DOCUMENTS'],
+                SECTION_B_DOCS.map((row, i) => ({
+                  cells: [String(i + 1), row.label, viewBtn(row.file)],
+                }))
+              )}
+            </div>
+
+            {/* C. RESULT AND ACADEMICS */}
+            <div id="section-c" className="pt-8 border-t border-slate-200 dark:border-zinc-800">
+              <h2 className="text-base font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3">
+                C. RESULT AND ACADEMICS
+              </h2>
+              {renderTable(
+                ['SL NO.', 'DOCUMENTS/INFORMATION', 'UPLOAD DOCUMENTS'],
+                SECTION_C_DOCS.map((row, i) => ({
+                  cells: [String(i + 1), row.label, viewBtn(row.file)],
+                }))
+              )}
+              <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                (5) Last three-years result of the board examination as per applicable
+              </p>
+              <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-400">Result Class: X</p>
+              {renderTable(
+                ['SL NO.', 'YEAR', 'NO. OF REGISTERED CANDIDATES', 'NO. OF STUDENTS PASSED', 'PASS PERCENTAGE', 'REMARKS'],
+                [
+                  { cells: ['1', '2024', '—', '—', '—', ''] },
+                  { cells: ['2', '2023', '—', '—', '—', ''] },
+                  { cells: ['3', '2022', '—', '—', '—', ''] },
+                ],
+                'mt-2'
+              )}
+            </div>
+
+            {/* D. STAFF (TEACHING) */}
+            <div id="section-d" className="pt-8 border-t border-slate-200 dark:border-zinc-800">
+              <h2 className="text-base font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3">
+                D. STAFF (TEACHING)
+              </h2>
+              {renderTable(
+                ['SL NO.', 'INFORMATION', 'NUMBER/STRENGTH', 'NAME AND QUALIFICATIONS'],
+                [
+                  { cells: ['1', 'Principal', '1', 'Mrs. Ragini Verma (B.Ed.)'] },
+                  { cells: ['2', 'Vice Principal', '—', '—'] },
+                  { cells: ['3', 'Headmistress/Headmaster', '—', '—'] },
+                  { cells: ['4', 'Total No. of Teachers', 'As per school records', 'View Staff Info'] },
+                  { cells: ['5', 'Teachers Section Ratio', '—', '—'] },
+                ]
+              )}
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                <button type="button" onClick={() => setPreviewPdf('doc3.pdf')} className="text-[#800020] font-semibold hover:underline">
+                  View Details
+                </button>{' '}
+                (Staff Info)
+              </p>
+            </div>
+
+            {/* E. SCHOOL INFRASTRUCTURE */}
+            <div id="section-e" className="pt-8 border-t border-slate-200 dark:border-zinc-800">
+              <h2 className="text-base font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3">
+                E. SCHOOL INFRASTRUCTURE
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="bg-[#800020] text-white">
+                      <th className="text-left py-3 px-4 font-semibold w-12">SL NO.</th>
+                      <th className="text-left py-3 px-4 font-semibold">INFORMATION</th>
+                      <th className="text-left py-3 px-4 font-semibold">DETAILS</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-slate-700 dark:text-slate-300">
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">1</td>
+                      <td className="py-3 px-4">Total campus area of the school (in square mtr)</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">2</td>
+                      <td className="py-3 px-4">No. and size of the class rooms (in sq mtr)</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">3</td>
+                      <td className="py-3 px-4">No. and size of laboratories including computer labs (in sq mtr)</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">4</td>
+                      <td className="py-3 px-4">No. and size of library (in sqr mtr)</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">5</td>
+                      <td className="py-3 px-4">Internet facility (Yes/No)</td>
+                      <td className="py-3 px-4">Yes</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">6</td>
+                      <td className="py-3 px-4">No. of girls toilets</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">7</td>
+                      <td className="py-3 px-4">No. of boys toilets</td>
+                      <td className="py-3 px-4">As per school records</td>
+                    </tr>
+                    <tr className="hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                      <td className="py-3 px-4">8</td>
+                      <td className="py-3 px-4">Link of YouTube video of the inspection of the school covering the infrastructure of the school</td>
+                      <td className="py-3 px-4">
+                        <button type="button" onClick={() => setPreviewPdf('doc6.pdf')} className="text-[#800020] font-semibold hover:underline">
+                          VIEW
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Preview Modal */}
@@ -1943,40 +2043,19 @@ function DocsPage() {
                   {DOCS_PDF_LIST.find((d) => d.file === previewPdf)?.title ?? previewPdf}
                 </h3>
                 <div className="flex items-center gap-2 shrink-0">
-                  <a
-                    href={`/${previewPdf}`}
-                    download={previewPdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
-                    title="Download"
-                  >
+                  <a href={`/${previewPdf}`} download={previewPdf} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300" title="Download">
                     <span className="material-symbols-outlined">download</span>
                   </a>
-                  <a
-                    href={`/${previewPdf}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
-                    title="Open in new tab"
-                  >
+                  <a href={`/${previewPdf}`} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300" title="Open in new tab">
                     <span className="material-symbols-outlined">open_in_new</span>
                   </a>
-                  <button
-                    onClick={() => setPreviewPdf(null)}
-                    className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300"
-                    title="Close"
-                  >
+                  <button onClick={() => setPreviewPdf(null)} className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-300" title="Close">
                     <span className="material-symbols-outlined">close</span>
                   </button>
                 </div>
               </div>
               <div className="flex-1 min-h-0 relative">
-                <iframe
-                  src={`/${previewPdf}#toolbar=1`}
-                  title="PDF Preview"
-                  className="absolute inset-0 w-full h-full"
-                />
+                <iframe src={`/${previewPdf}#toolbar=1`} title="PDF Preview" className="absolute inset-0 w-full h-full" />
               </div>
             </div>
           </div>
