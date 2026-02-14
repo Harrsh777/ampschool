@@ -311,14 +311,30 @@ export default function AshutoshMemorialSchool() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 pt-16 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 text-xs text-slate-500 uppercase tracking-[0.2em]">
-          <p>© 2024 Ashutosh Memorial School. All Rights Reserved.</p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <p>© 2024 Ashutosh Memorial School. All Rights Reserved.</p>
+          
+          </div>
           <div className="flex gap-10">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
             <a href="#" className="hover:text-white transition-colors">Accessibility</a>
           </div>
         </div>
+
+       
+
       </footer>
+      <div className="flex justify-center mb-[0cm] bg-slate-950 text-white py-2">
+  <a
+    href="https://www.harshsrivastava.in/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-['Playfair_Display'] font-size-1 hover:text-white transition-colors normal-case tracking-normal"
+  >
+    Designed by Harsh Srivastava
+  </a>
+</div>
 
       {/* Floating TC Verification button - bottom right */}
       <a
@@ -1805,6 +1821,71 @@ function DocsPage() {
           <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm md:text-base">
             View or download school documents.
           </p>
+        </div>
+
+        {/* Mandatory Public Disclosure - AMS */}
+        <div className="mb-16 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden shadow-sm">
+          <div className="px-6 py-5 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/50">
+            <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+              Mandatory Public Disclosure
+            </h2>
+            <p className="mt-1 text-sm font-semibold text-[#800020] uppercase tracking-wide">
+              Affiliation Status : Secondary
+            </p>
+          </div>
+          <div className="px-6 py-4">
+            <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4">
+              A. General Information
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-[#800020] text-white">
+                    <th className="text-left py-3 px-4 font-semibold w-20">SL NO.</th>
+                    <th className="text-left py-3 px-4 font-semibold">INFORMATION</th>
+                    <th className="text-left py-3 px-4 font-semibold">DETAILS</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-700 dark:text-slate-300">
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">1</td>
+                    <td className="py-3 px-4 font-medium">Name of the School</td>
+                    <td className="py-3 px-4">Ashutosh Memorial School</td>
+                  </tr>
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">2</td>
+                    <td className="py-3 px-4 font-medium">Affiliation No. (if applicable)</td>
+                    <td className="py-3 px-4">2133851</td>
+                  </tr>
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">3</td>
+                    <td className="py-3 px-4 font-medium">School Code (if applicable)</td>
+                    <td className="py-3 px-4">71908</td>
+                  </tr>
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">4</td>
+                    <td className="py-3 px-4 font-medium">Complete Address with Pincode</td>
+                    <td className="py-3 px-4">Dhanaicha-Malkhanpur, Post-Kotwa, Prayagraj-221505 (Uttar Pradesh)</td>
+                  </tr>
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">5</td>
+                    <td className="py-3 px-4 font-medium">Principal Name and Qualification</td>
+                    <td className="py-3 px-4">Mrs. Ragini Verma, B.Ed.</td>
+                  </tr>
+                  <tr className="border-b border-slate-200 dark:border-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">6</td>
+                    <td className="py-3 px-4 font-medium">School Email ID</td>
+                    <td className="py-3 px-4">grishpandey2006@gmail.com</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50 dark:hover:bg-zinc-900/50">
+                    <td className="py-3 px-4 font-medium">7</td>
+                    <td className="py-3 px-4 font-medium">Contact Details (Landline / Mobile)</td>
+                    <td className="py-3 px-4">9415278868, 7007050611</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         {/* Box grid - responsive cards */}
