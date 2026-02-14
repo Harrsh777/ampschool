@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function AshutoshMemorialSchool() {
@@ -43,27 +43,6 @@ export default function AshutoshMemorialSchool() {
         { title: 'Syllabi', href: 'syllabi' },
         { title: 'Medium of Instructions', href: 'medium' },
         { title: 'Fee Structure', href: 'fee-structure' },
-      ],
-    },
-    {
-      title: 'Facilities',
-      submenu: [
-        { title: 'Infrastructure', href: 'infrastructure' },
-        { title: 'Faculty Profile', href: 'faculty' },
-      ],
-    },
-    {
-      title: 'Activities',
-      submenu: [
-        { title: 'Co-Curriculum', href: 'co-curriculum' },
-        { title: 'Games & Sports', href: 'sports' },
-        { title: 'Houses of School', href: 'houses' },
-        { title: 'Event Gallery', href: 'gallery' },
-      ],
-    },
-    {
-      title: 'Rules',
-      submenu: [
         { title: 'General Rules', href: 'general-rules' },
         { title: 'Admission Rules', href: 'admission-rules' },
         { title: 'Withdrawal Rules', href: 'withdrawal-rules' },
@@ -71,10 +50,18 @@ export default function AshutoshMemorialSchool() {
       ],
     },
     {
-      title: 'TC',
-      externalHref: 'http://ams.schoolerpsolution.in/tc.php',
+      title: 'Facilities',
+      submenu: [
+        { title: 'Infrastructure', href: 'infrastructure' },
+        { title: 'Faculty Profile', href: 'faculty' },
+        { title: 'Co-Curriculum', href: 'co-curriculum' },
+        { title: 'Games & Sports', href: 'sports' },
+        { title: 'Houses of School', href: 'houses' },
+        { title: 'Event Gallery', href: 'gallery' },
+      ],
     },
-    { title: 'Docs', href: 'docs' },
+  
+    { title: 'Mandatory Disclosure', href: 'docs' },
     { title: 'Contact', href: 'contact' },
   ];
 
@@ -157,33 +144,22 @@ export default function AshutoshMemorialSchool() {
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide uppercase">
             {navItems.map((item) => (
               <div key={item.title} className="relative">
-                {'externalHref' in item && item.externalHref ? (
-                  <a
-                    href={item.externalHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
-                  >
-                    {item.title}
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => {
-                      if (item.submenu) {
-                        setActiveDropdown(activeDropdown === item.title ? null : item.title);
-                      } else if (item.href) {
-                        navigateToPage(item.href);
-                        setActiveDropdown(null);
-                      }
-                    }}
-                    className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
-                  >
-                    {item.title}
-                    {item.submenu && (
-                      <span className="material-symbols-outlined text-sm">expand_more</span>
-                    )}
-                  </button>
-                )}
+                <button
+                  onClick={() => {
+                    if (item.submenu) {
+                      setActiveDropdown(activeDropdown === item.title ? null : item.title);
+                    } else if (item.href) {
+                      navigateToPage(item.href);
+                      setActiveDropdown(null);
+                    }
+                  }}
+                  className="flex items-center gap-1 py-2 hover:text-[#800020] transition-colors"
+                >
+                  {item.title}
+                  {item.submenu && (
+                    <span className="material-symbols-outlined text-sm">expand_more</span>
+                  )}
+                </button>
                 {item.submenu && activeDropdown === item.title && (
                   <div
                     className="absolute left-0 top-full mt-2 w-56 rounded-lg bg-white dark:bg-zinc-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden py-2"
@@ -220,33 +196,21 @@ export default function AshutoshMemorialSchool() {
       <div className="px-4 py-4 space-y-2">
         {navItems.map((item) => (
           <div key={item.title}>
-            {'externalHref' in item && item.externalHref ? (
-              <a
-                href={item.externalHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-left py-2 font-medium hover:text-[#800020]"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.title}
-              </a>
-            ) : (
-              <button
-                onClick={() => {
-                  if (item.submenu) {
-                    setActiveDropdown(
-                      activeDropdown === item.title ? null : item.title
-                    );
-                  } else if (item.href) {
-                    navigateToPage(item.href);
-                    setIsMenuOpen(false);
-                  }
-                }}
-                className="w-full text-left py-2 font-medium hover:text-[#800020]"
-              >
-                {item.title}
-              </button>
-            )}
+            <button
+              onClick={() => {
+                if (item.submenu) {
+                  setActiveDropdown(
+                    activeDropdown === item.title ? null : item.title
+                  );
+                } else if (item.href) {
+                  navigateToPage(item.href);
+                  setIsMenuOpen(false);
+                }
+              }}
+              className="w-full text-left py-2 font-medium hover:text-[#800020]"
+            >
+              {item.title}
+            </button>
 
             {item.submenu && activeDropdown === item.title && (
               <div className="pl-4 space-y-1">
@@ -356,6 +320,17 @@ export default function AshutoshMemorialSchool() {
         </div>
       </footer>
 
+      {/* Floating TC Verification button - bottom right */}
+      <a
+        href="http://ams.schoolerpsolution.in/tc.php"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3.5 bg-[#800020] text-white font-semibold text-sm uppercase tracking-wide rounded-lg shadow-lg hover:bg-red-900 hover:shadow-xl transition-all active:scale-[0.98]"
+      >
+        <span className="material-symbols-outlined text-xl">verified</span>
+        TC Verification
+      </a>
+
       {/* Fonts & hero overlays */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
@@ -398,54 +373,106 @@ export default function AshutoshMemorialSchool() {
   );
 }
 
+// Hero carousel images (Unsplash + /public)
+const HERO_CAROUSEL_IMAGES = [
+  {
+    src: 'https://plus.unsplash.com/premium_photo-1681505336207-cea25b6cf0ea?w=1600&auto=format&fit=crop&q=80',
+    alt: 'Ashutosh Memorial School - Excellence in Education',
+  },
+  { src: '/AMS.jpg', alt: 'AMS Campus' },
+  { src: '/AMS2.jpg', alt: 'AMS Students' },
+  { src: '/aps.jpeg', alt: 'Ashutosh Memorial School' },
+];
+
 // HOME PAGE COMPONENT
 function HomePage({ navigateToPage }: { navigateToPage: (page: string) => void }) {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  // Auto-advance hero carousel every 5.5s
+  useEffect(() => {
+    const t = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % HERO_CAROUSEL_IMAGES.length);
+    }, 5500);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <>
-      {/* Hero - reference: 92vh, overlay, vignette, gold line, floating bottom-right */}
-      <header className="relative h-[92vh] flex items-center overflow-hidden">
-  <Image
-    src="https://plus.unsplash.com/premium_photo-1681505336207-cea25b6cf0ea?w=1600&auto=format&fit=crop&q=80"
-    alt="Ashutosh Memorial School"
-    fill
-    priority
-    sizes="100vw"
-    className="object-cover object-center scale-105 saturate-[1.05] contrast-[1.1] brightness-[0.9]"
-  />
+      {/* Hero - carousel background, overlay, content */}
+      <header className="relative h-[92vh] flex items-center overflow-hidden bg-black">
+        {/* Carousel layer - stacked images with crossfade */}
+        <div className="absolute inset-0">
+          {HERO_CAROUSEL_IMAGES.map((img, i) => (
+            <div
+              key={img.src}
+              className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+              style={{ opacity: i === heroIndex ? 1 : 0 }}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover object-center scale-105 saturate-[1.05] contrast-[1.1] brightness-[0.9]"
+              />
+            </div>
+          ))}
+        </div>
 
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/15" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/15 pointer-events-none" />
 
-  {/* Vignette (subtle) */}
-  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.35))]" />
+        {/* Vignette */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.35))]" />
 
-  {/* Content */}
-  <div className="max-w-3xl pl-5 sm:pl-10 lg:pl-16 relative z-20">
-    <p className="flex items-center gap-3 font-semibold tracking-[0.3em] uppercase text-[11px] text-[#C5A059] mb-4">
-      <span className="w-10 h-px bg-[#C5A059]" />
-      Excellence in Education
-    </p>
+        {/* Content */}
+        <div className="max-w-3xl pl-5 sm:pl-10 lg:pl-16 relative z-20">
+          <p className="flex items-center gap-3 font-semibold tracking-[0.3em] uppercase text-[11px] text-[#C5A059] mb-4">
+            <span className="w-10 h-px bg-[#C5A059]" />
+            Excellence in Education
+          </p>
 
-    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.15] mb-5 tracking-tight text-white">
-      Ashutosh Memorial <br />
-      <span className="italic font-normal">School</span>
-    </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.15] mb-5 tracking-tight text-white">
+            Ashutosh Memorial <br />
+            <span className="italic font-normal">School</span>
+          </h1>
 
-    <p className="text-base md:text-lg mb-7 text-white/90 max-w-xl">
-      Dhanaicha-Malkhanpur, Prayagraj, UP
-    </p>
+          <p className="text-base md:text-lg mb-7 text-white/90 max-w-xl">
+            Dhanaicha-Malkhanpur, Prayagraj, UP
+          </p>
 
-    <button
-      onClick={() => navigateToPage('contact')}
-      className="bg-[#800020] hover:bg-[#6a001a] text-white px-7 py-3.5 inline-flex items-center gap-2.5 font-semibold uppercase tracking-widest text-[11px] shadow-xl hover:shadow-2xl transition-all duration-300"
-    >
-      Request Info
-      <span className="material-symbols-outlined text-base">
-        arrow_right_alt
-      </span>
-    </button>
-  </div>
-</header>
+          <button
+            onClick={() => navigateToPage('contact')}
+            className="bg-[#800020] hover:bg-[#6a001a] text-white px-7 py-3.5 inline-flex items-center gap-2.5 font-semibold uppercase tracking-widest text-[11px] shadow-xl hover:shadow-2xl transition-all duration-300"
+          >
+            Request Info
+            <span className="material-symbols-outlined text-base">
+              arrow_right_alt
+            </span>
+          </button>
+        </div>
+
+        {/* Carousel dots - bottom center */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
+          {HERO_CAROUSEL_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setHeroIndex(i)}
+              className="rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
+              aria-label={`Go to slide ${i + 1}`}
+            >
+              <span
+                className={`block h-2 w-2 rounded-full transition-all duration-300 ${
+                  i === heroIndex
+                    ? 'bg-[#C5A059] w-6'
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      </header>
 
 
       {/* Stats bar - reference: dot grid, accent-gold numbers */}
@@ -1760,61 +1787,65 @@ const DOCS_PDF_LIST = [
   { file: 'doc7.pdf', title: 'Chemical Analysis', description: 'School document' },
   { file: 'doc8.pdf', title: 'Parent Teacher Association', description: 'School document' },
   { file: 'doc9.pdf', title: 'School Management Committee', description: 'School document' },
-  { file: 'doc10.pdf', title: 'Document ', description: 'School document' },
+  { file: 'doc10.pdf', title: 'Document', description: 'School document' },
 ];
 
-// DOCS PAGE - view & download PDFs from /public
+// DOCS PAGE - view & download PDFs from /public (box cards)
 function DocsPage() {
   const [previewPdf, setPreviewPdf] = useState<string | null>(null);
 
   return (
-    <section className="py-16 md:py-28 min-h-screen">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Header - minimal */}
-        <div className="mb-14 md:mb-20">
+    <section className="py-16 md:py-24 min-h-screen">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div className="mb-12 md:mb-16">
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white tracking-tight">
             Documents
           </h1>
-          <p className="mt-3 text-slate-500 dark:text-slate-400 text-sm md:text-base">
+          <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm md:text-base">
             View or download school documents.
           </p>
         </div>
 
-        {/* List - one row per doc, lots of space */}
-        <ul className="space-y-1">
+        {/* Box grid - responsive cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
           {DOCS_PDF_LIST.map((doc) => (
-            <li
+            <div
               key={doc.file}
-              className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 py-5 sm:py-6 border-b border-slate-100 dark:border-zinc-800/80 last:border-0"
+              className="group flex flex-col rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm hover:shadow-md hover:border-[#800020]/20 transition-all duration-200 overflow-hidden"
             >
-              <div className="flex items-center gap-4 min-w-0 flex-1">
-                <span className="material-symbols-outlined text-slate-400 dark:text-slate-500 group-hover:text-[#800020] transition-colors shrink-0 text-2xl">
-                  description
-                </span>
-                <span className="font-medium text-slate-900 dark:text-white truncate">
-                  {doc.title}
-                </span>
+              <div className="p-5 flex flex-col flex-1 min-h-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 group-hover:bg-[#800020]/10 transition-colors">
+                    <span className="material-symbols-outlined text-[#800020] text-xl">description</span>
+                  </div>
+                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-tight line-clamp-2 min-w-0">
+                    {doc.title}
+                  </h3>
+                </div>
+                <div className="flex gap-1.5 mt-auto pt-2 min-w-0">
+                  <button
+                    onClick={() => setPreviewPdf(doc.file)}
+                    className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 py-1.5 px-2 text-[11px] font-semibold text-[#800020] bg-[#800020]/10 hover:bg-[#800020]/20 rounded-md transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm shrink-0">visibility</span>
+                    
+                  </button>
+                  <a
+                    href={`/${doc.file}`}
+                    download={doc.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-0 inline-flex items-center justify-center gap-1 py-1.5 px-2 text-[11px] font-semibold bg-[#800020] text-white hover:bg-red-900 rounded-md transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm shrink-0">download</span>
+                   
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center gap-4 sm:gap-6 shrink-0 pl-10 sm:pl-0">
-                <button
-                  onClick={() => setPreviewPdf(doc.file)}
-                  className="text-sm text-[#800020] hover:underline font-medium"
-                >
-                  Preview
-                </button>
-                <a
-                  href={`/${doc.file}`}
-                  download={doc.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-slate-500 dark:text-slate-400 hover:text-[#800020] hover:underline font-medium"
-                >
-                  Download
-                </a>
-              </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
 
         {/* Preview Modal */}
         {previewPdf && (
